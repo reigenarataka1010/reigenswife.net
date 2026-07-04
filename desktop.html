@@ -1,1 +1,453 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>seolhae's desktop ⋆</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wallpaper1:#eef7fb;
+    --wallpaper2:#fdeef5;
+    --ink:#51606e;
+    --ink-soft:#9bb0c2;
+    --glass:rgba(255,255,255,.82);
+    --line:rgba(120,150,175,.16);
+    --accent:#bfe3f2;
+    --accent-deep:#7fb8d9;
+    --pink:#f7c6dd;
+    --pink-deep:#ee93bc;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;
+    height:100%;
+    overflow:hidden;
+    font-family:'Nunito', sans-serif;
+    color:var(--ink);
+    font-size:12.5px;
+    cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26"><text y="20" font-size="20">✿</text></svg>') 10 10, auto;
+  }
+  a, button{
+    cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26"><text y="20" font-size="20">♡</text></svg>') 10 10, pointer;
+  }
 
+  /* ---- wallpaper ---- */
+  .desktop{
+    position:relative;
+    width:100%;height:100%;
+    background:
+      radial-gradient(circle at 75% 25%, #f4fbff 0%, transparent 45%),
+      radial-gradient(circle at 20% 80%, #fff3f8 0%, transparent 40%),
+      linear-gradient(160deg, var(--wallpaper1), var(--wallpaper2));
+  }
+  .blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(2px);
+    opacity:.55;
+  }
+  .blob.b1{width:520px;height:520px;background:radial-gradient(circle,#bfe3f2,transparent 70%);right:-120px;top:-140px;}
+  .blob.b2{width:420px;height:420px;background:radial-gradient(circle,#f7c6dd,transparent 70%);left:-100px;bottom:-120px;}
+  .caption-doodle{
+    position:absolute;left:6%;top:34%;
+    font-family:'Gaegu', cursive;
+    font-size:20px;
+    color:#9bb0c2;
+    transform:rotate(-3deg);
+  }
+
+  /* ---- floating decorations ---- */
+  .floaty{
+    position:absolute;
+    pointer-events:none;
+    font-size:16px;
+    color:var(--pink-deep);
+    opacity:.6;
+    animation:drift 9s ease-in-out infinite;
+  }
+  @keyframes drift{
+    0%,100%{transform:translateY(0) rotate(0deg);}
+    50%{transform:translateY(-22px) rotate(12deg);}
+  }
+
+  /* ---- desktop icons ---- */
+  .icons{
+    position:absolute;top:26px;left:22px;
+    display:flex;flex-direction:column;gap:22px;
+    z-index:2;
+  }
+  .icon{
+    width:74px;text-align:center;
+    text-decoration:none;color:var(--ink);
+    font-size:10.5px;
+  }
+  .icon .glyph{
+    width:42px;height:36px;margin:0 auto 4px;
+    background:var(--glass);
+    border:1px solid var(--line);
+    border-radius:6px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;
+    backdrop-filter:blur(4px);
+  }
+  .icon span{text-shadow:0 0 4px #fff, 0 0 4px #fff;}
+
+  .trash{
+    position:absolute;bottom:64px;left:22px;
+    text-align:center;width:74px;font-size:10.5px;
+    color:var(--ink);
+  }
+  .trash .glyph{
+    width:42px;height:36px;margin:0 auto 4px;
+    background:var(--glass);border:1px solid var(--line);border-radius:6px;
+    display:flex;align-items:center;justify-content:center;font-size:18px;
+    backdrop-filter:blur(4px);
+  }
+
+  /* ---- widgets (top right) ---- */
+  .widgets{
+    position:absolute;top:24px;right:24px;
+    display:flex;flex-direction:column;gap:14px;
+    width:230px;z-index:3;
+  }
+  .widget{
+    background:var(--glass);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:12px 14px;
+    backdrop-filter:blur(10px);
+    box-shadow:0 8px 20px rgba(90,70,60,.08);
+  }
+  .widget .head{
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:11px;color:var(--ink-soft);margin-bottom:8px;
+  }
+
+  .album{
+    width:100%;aspect-ratio:16/9;border-radius:8px;
+    background:repeating-linear-gradient(135deg,#f1e3ea,#f1e3ea 8px,#ecd5e0 8px,#ecd5e0 16px);
+    display:flex;align-items:center;justify-content:center;
+    color:#c98fae;font-size:10px;margin-bottom:8px;
+  }
+  .song-title{font-size:11px;font-weight:700;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .seekbar{height:3px;background:var(--line);border-radius:2px;margin-bottom:8px;position:relative;}
+  .seekbar i{position:absolute;left:0;top:0;height:100%;width:20%;background:var(--accent-deep);border-radius:2px;}
+  .controls{display:flex;justify-content:center;gap:16px;align-items:center;}
+  .controls button{
+    background:none;border:none;font-size:15px;color:var(--ink);
+  }
+  .controls button.play{
+    width:30px;height:30px;border-radius:50%;background:var(--accent-deep);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:12px;
+  }
+  .marquee{margin-top:8px;font-size:10px;color:var(--ink-soft);white-space:nowrap;overflow:hidden;}
+  .marquee span{display:inline-block;padding-left:100%;animation:mq 12s linear infinite;}
+  @keyframes mq{from{transform:translateX(0);}to{transform:translateX(-100%);}}
+
+  .dday-num{font-size:24px;font-weight:700;color:var(--pink-deep);}
+  .dday-date{font-size:10px;color:var(--ink-soft);}
+
+  .todo-input{
+    width:100%;border:1px solid var(--line);border-radius:8px;
+    padding:6px 8px;font-size:11px;background:#fff;margin-bottom:8px;
+  }
+  .todo-list{list-style:none;margin:0;padding:0;max-height:90px;overflow-y:auto;}
+  .todo-list li{
+    display:flex;align-items:center;gap:6px;
+    font-size:11px;padding:3px 0;
+  }
+  .todo-list li .del{margin-left:auto;color:var(--ink-soft);cursor:pointer;font-size:10px;}
+
+  .timer-toggle{font-size:11px;color:var(--ink-soft);cursor:pointer;display:flex;justify-content:space-between;}
+
+  /* ---- explorer window ---- */
+  .explorer{
+    position:absolute;
+    top:50%;left:50%;
+    transform:translate(-50%,-46%);
+    width:min(680px, 90vw);
+    background:var(--glass);
+    border:1px solid var(--line);
+    border-radius:14px;
+    box-shadow:0 20px 50px rgba(80,60,50,.18);
+    backdrop-filter:blur(14px);
+    overflow:hidden;
+    z-index:4;
+  }
+  .explorer .titlebar{
+    display:flex;align-items:center;gap:8px;
+    padding:10px 14px;
+    border-bottom:1px solid var(--line);
+    font-size:11px;color:var(--ink-soft);
+  }
+  .traffic{display:flex;gap:6px;}
+  .traffic span{width:10px;height:10px;border-radius:50%;}
+  .traffic .r{background:#f19b9b;}
+  .traffic .y{background:#f0d59b;}
+  .traffic .g{background:#a9d3a4;}
+  .titlebar .name{flex:1;text-align:center;}
+
+  .crumbrow{
+    display:flex;gap:8px;align-items:center;
+    padding:8px 14px;
+    border-bottom:1px solid var(--line);
+    font-size:10.5px;color:var(--ink-soft);
+  }
+  .crumbrow input{
+    margin-left:auto;border:1px solid var(--line);border-radius:6px;
+    padding:4px 8px;font-size:10px;width:130px;background:#fff;
+  }
+
+  .explorer-body{display:grid;grid-template-columns:150px 1fr;}
+  .exp-side{
+    border-right:1px solid var(--line);
+    padding:12px 10px;
+    font-size:10.5px;
+  }
+  .exp-side .cat-title{color:var(--ink-soft);margin:10px 0 4px;font-size:9.5px;letter-spacing:.05em;}
+  .exp-side a{
+    display:block;color:var(--ink);text-decoration:none;
+    padding:4px 4px;border-radius:5px;
+  }
+  .exp-side a:hover, .exp-side a.active{background:rgba(216,138,168,.18);}
+
+  .exp-main{padding:14px;max-height:280px;overflow-y:auto;}
+  .thumb-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+  .thumb{
+    aspect-ratio:1;border-radius:8px;
+    background:repeating-linear-gradient(135deg,#eaf5fb,#eaf5fb 8px,#dcedf7 8px,#dcedf7 16px);
+    display:flex;align-items:center;justify-content:center;
+    color:#9dc3d6;font-size:9px;
+  }
+  .item-count{padding:8px 14px;border-top:1px solid var(--line);font-size:10px;color:var(--ink-soft);}
+
+  /* ---- taskbar ---- */
+  .taskbar{
+    position:absolute;bottom:0;left:0;right:0;
+    height:46px;
+    background:var(--glass);
+    backdrop-filter:blur(12px);
+    border-top:1px solid var(--line);
+    display:flex;align-items:center;
+    padding:0 14px;
+    gap:14px;
+    z-index:5;
+  }
+  .start-btn{
+    background:var(--accent-deep);color:#fff;border:none;border-radius:8px;
+    padding:7px 14px;font-size:11px;font-weight:700;
+  }
+  .taskbar .user{font-size:11px;color:var(--ink-soft);}
+  .taskbar .clock{margin-left:auto;font-size:11px;color:var(--ink);}
+  .taskbar .heart{color:var(--accent-deep);}
+
+  .start-menu{
+    position:absolute;bottom:52px;left:14px;
+    width:170px;background:var(--glass);border:1px solid var(--line);
+    border-radius:10px;backdrop-filter:blur(12px);
+    box-shadow:0 10px 26px rgba(80,60,50,.15);
+    padding:8px;display:none;z-index:6;
+  }
+  .start-menu.open{display:block;}
+  .start-menu a{
+    display:block;padding:7px 8px;border-radius:6px;
+    color:var(--ink);text-decoration:none;font-size:11.5px;
+  }
+  .start-menu a:hover{background:rgba(216,138,168,.18);}
+
+  @media (max-width:720px){
+    .widgets{display:none;}
+    .explorer{width:94vw;}
+    .thumb-grid{grid-template-columns:repeat(3,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<div class="desktop" id="desktop">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="caption-doodle">˖ ࣪ 오늘도 좋은 하루 ⊹</div>
+
+  <!-- desktop icons -->
+  <div class="icons">
+    <a class="icon" href="index.html"><div class="glyph">📁</div><span>entrance</span></a>
+    <a class="icon" href="main.html"><div class="glyph">📄</div><span>내 문서</span></a>
+    <a class="icon" href="#gallery"><div class="glyph">🖼</div><span>내 사진</span></a>
+  </div>
+  <a class="trash" href="#" onclick="return false;"><div class="glyph">🗑</div><span>휴지통</span></a>
+
+  <!-- widgets -->
+  <div class="widgets">
+
+    <div class="widget">
+      <div class="head"><span>♪ 뮤직</span><span>⋯</span></div>
+      <div class="album">album art</div>
+      <div class="song-title">노래 제목을 입력하세요</div>
+      <div class="seekbar"><i></i></div>
+      <div class="controls">
+        <button onclick="prevTrack()">⏮</button>
+        <button class="play" id="playBtn" onclick="toggleMusic()">▶</button>
+        <button onclick="nextTrack()">⏭</button>
+      </div>
+      <div class="marquee"><span>♪ 배경음악을 넣으려면 music.mp3 파일을 같이 올리고 audio 태그의 src를 바꿔주세요 ♪</span></div>
+      <audio id="bgm" loop>
+        <!-- <source src="music.mp3" type="audio/mpeg"> -->
+      </audio>
+    </div>
+
+    <div class="widget">
+      <div class="head"><span>♥ 디데이</span><span>⋯</span></div>
+      <div class="dday-num" id="ddayNum">D+0</div>
+      <div class="dday-date" id="ddayDate">시작일: -</div>
+    </div>
+
+    <div class="widget">
+      <div class="head"><span>✓ 할 일</span><span>⋯</span></div>
+      <input class="todo-input" id="todoInput" placeholder="할 일 입력 후 Enter" onkeydown="if(event.key==='Enter')addTodo()">
+      <ul class="todo-list" id="todoList"></ul>
+    </div>
+
+    <div class="widget">
+      <div class="timer-toggle" onclick="document.getElementById('timerBody').classList.toggle('open')">
+        <span>⏱ 타이머</span><span>▾</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- explorer window -->
+  <div class="explorer">
+    <div class="titlebar">
+      <div class="traffic"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+      <div class="name">📁 seolhae's gallery</div>
+    </div>
+    <div class="crumbrow">
+      <span>내 PC</span> › <span>seolhae's gallery</span>
+      <input placeholder="검색 후 Enter">
+    </div>
+    <div class="explorer-body">
+      <div class="exp-side">
+        <div class="cat-title">즐겨찾기</div>
+        <a href="index.html">📁 내 PC</a>
+        <a href="main.html#guestbook">💬 방명록</a>
+        <div class="cat-title">카테고리</div>
+        <a href="#" class="active" onclick="return false;">☆ All</a>
+        <a href="#" onclick="return false;">˙ diary</a>
+        <a href="#" onclick="return false;">˙ note</a>
+        <a href="#gallery" onclick="return false;">˙ log</a>
+        <a href="main.html#about" onclick="return false;">˙ About</a>
+      </div>
+      <div>
+        <div class="exp-main" id="gallery">
+          <div class="thumb-grid">
+            <div class="thumb">photo</div>
+            <div class="thumb">photo</div>
+            <div class="thumb">photo</div>
+            <div class="thumb">photo</div>
+            <div class="thumb">photo</div>
+            <div class="thumb">photo</div>
+            <div class="thumb">photo</div>
+            <div class="thumb">photo</div>
+          </div>
+        </div>
+        <div class="item-count">8개 항목</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- taskbar -->
+  <div class="taskbar">
+    <button class="start-btn" onclick="document.getElementById('startMenu').classList.toggle('open')">시작</button>
+    <span class="user">seolhae</span>
+    <span class="clock" id="clock">00:00</span>
+    <span class="heart">♥</span>
+  </div>
+
+  <div class="start-menu" id="startMenu">
+    <a href="index.html">🏠 entrance</a>
+    <a href="main.html">📄 main</a>
+    <a href="#gallery">🖼 gallery</a>
+    <a href="main.html#guestbook">💬 guestbook</a>
+  </div>
+
+</div>
+
+<script>
+  /* 漂浮装饰 */
+  const symbols = ['✼','♡','⋆','✧','❀'];
+  const desktop = document.getElementById('desktop');
+  for(let i=0;i<16;i++){
+    const el = document.createElement('div');
+    el.className = 'floaty';
+    el.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+    el.style.left = Math.random()*96 + '%';
+    el.style.top = Math.random()*90 + '%';
+    el.style.fontSize = (12 + Math.random()*14) + 'px';
+    el.style.animationDuration = (6 + Math.random()*6) + 's';
+    el.style.animationDelay = (Math.random()*4) + 's';
+    desktop.appendChild(el);
+  }
+
+  /* 时钟 */
+  function tick(){
+    const d = new Date();
+    document.getElementById('clock').textContent =
+      String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+  }
+  tick(); setInterval(tick, 1000*30);
+
+  /* D-day：改成你自己的起始日期 */
+  const startDate = new Date('2026-01-01');
+  const diffDays = Math.floor((new Date() - startDate) / 86400000);
+  document.getElementById('ddayNum').textContent = 'D+' + diffDays;
+  document.getElementById('ddayDate').textContent = '시작일: ' + startDate.toISOString().slice(0,10);
+
+  /* 待办事项（仅当前会话内存，刷新会重置；部署后可以自行加 localStorage 持久化） */
+  let todos = [];
+  function renderTodos(){
+    const list = document.getElementById('todoList');
+    list.innerHTML = '';
+    todos.forEach((t, i) => {
+      const li = document.createElement('li');
+      li.innerHTML = '♡ ' + t + ' <span class="del" onclick="removeTodo(' + i + ')">✕</span>';
+      list.appendChild(li);
+    });
+  }
+  function addTodo(){
+    const input = document.getElementById('todoInput');
+    if(input.value.trim()){
+      todos.push(input.value.trim());
+      input.value = '';
+      renderTodos();
+    }
+  }
+  function removeTodo(i){ todos.splice(i,1); renderTodos(); }
+  todos = ['꼬옥 안아주기'];
+  renderTodos();
+
+  /* 音乐播放（浏览器限制：需要用户先点击一次才能真正自动播放） */
+  const bgm = document.getElementById('bgm');
+  const playBtn = document.getElementById('playBtn');
+  let playing = false;
+  function toggleMusic(){
+    if(playing){ bgm.pause(); playBtn.textContent = '▶'; }
+    else { bgm.play().catch(()=>{}); playBtn.textContent = '❚❚'; }
+    playing = !playing;
+  }
+  function prevTrack(){ bgm.currentTime = 0; }
+  function nextTrack(){ bgm.currentTime = 0; }
+  // 尝试首次点击页面任意位置时自动播放
+  document.body.addEventListener('click', function once(){
+    if(!playing && bgm.querySelector('source')){
+      bgm.play().then(()=>{ playing = true; playBtn.textContent = '❚❚'; }).catch(()=>{});
+    }
+    document.body.removeEventListener('click', once);
+  });
+</script>
+
+</body>
+</html>
