@@ -1,1 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>seolhae.neocities.org ⋆ main</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&family=Quicksand:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#cfe9f2;
+    --blue-deep:#a9d6e8;
+    --pink:#ffd6ea;
+    --pink-deep:#ff9dc9;
+    --pink-line:#ffbcdd;
+    --ink:#3d4550;
+    --ink-soft:#7c8a95;
+    --win:#ffffff;
+    --grid:#eaf3fa;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--blue);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(255,255,255,.5) 0%, transparent 30%),
+      radial-gradient(circle at 85% 60%, rgba(255,255,255,.4) 0%, transparent 35%);
+    color:var(--ink);
+    font-family:'Quicksand', sans-serif;
+    font-size:12.5px;
+  }
+  a{color:#5b8fa8;}
+  ::-webkit-scrollbar{width:8px;}
+  ::-webkit-scrollbar-track{background:#f2f8fb;}
+  ::-webkit-scrollbar-thumb{background:var(--pink-deep);border-radius:4px;}
 
+  /* ---- top nav ---- */
+  .topbar{
+    background:var(--pink);
+    border-bottom:2px solid var(--pink-deep);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px 22px;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .brand{
+    font-family:'Mrs Saint Delafield', cursive;
+    font-size:30px;
+    color:#e85fa0;
+    text-shadow:1px 1px 0 #fff;
+  }
+  .navlinks{display:flex;gap:8px;flex-wrap:wrap;}
+  .navlinks a{
+    display:flex;align-items:center;gap:5px;
+    background:#fff;
+    border:1px solid var(--pink-line);
+    border-radius:16px;
+    padding:6px 14px;
+    font-size:11.5px;
+    color:var(--ink);
+    text-decoration:none;
+  }
+  .navlinks a.active{background:var(--pink-deep);color:#fff;border-color:var(--pink-deep);}
+  .navlinks a .chk{
+    width:11px;height:11px;border:1px solid currentColor;display:inline-block;
+  }
+
+  .desktop{
+    max-width:1180px;
+    margin:0 auto;
+    padding:26px 18px 60px;
+    display:grid;
+    grid-template-columns:1fr 300px;
+    gap:20px;
+    align-items:start;
+  }
+
+  /* ---- window chrome ---- */
+  .window{
+    background:var(--win);
+    border:1px solid var(--pink-line);
+    border-radius:14px;
+    box-shadow:0 6px 18px rgba(90,120,150,.12);
+    overflow:hidden;
+    margin-bottom:20px;
+  }
+  .titlebar{
+    background:linear-gradient(180deg,#ffe4f2,#ffd0e8);
+    padding:8px 14px;
+    font-size:10.5px;
+    letter-spacing:.05em;
+    color:#a85a83;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid var(--pink-line);
+  }
+  .titlebar .x{
+    width:14px;height:14px;
+    border:1px solid #d98ab0;
+    color:#d98ab0;
+    display:flex;align-items:center;justify-content:center;
+    font-size:9px;
+    border-radius:3px;
+  }
+
+  /* ---- intro window ---- */
+  .intro-body{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:18px;
+    padding:18px;
+  }
+  .avatar-card{
+    aspect-ratio:3/4;
+    border-radius:10px;
+    background:
+      repeating-linear-gradient(135deg,#f4e0ec,#f4e0ec 10px,#eccfe0 10px,#eccfe0 20px);
+    display:flex;align-items:center;justify-content:center;
+    color:#c98ab0;
+    font-size:11px;
+    border:1px solid var(--pink-line);
+  }
+  .folders{
+    display:flex;
+    gap:14px;
+    margin-top:12px;
+    justify-content:space-between;
+  }
+  .folder{
+    text-align:center;
+    font-size:10px;
+    color:var(--ink-soft);
+    flex:1;
+  }
+  .folder .icon{
+    width:36px;height:26px;
+    margin:0 auto 4px;
+    background:var(--pink-deep);
+    border-radius:2px 6px 6px 6px;
+    opacity:.75;
+  }
+
+  .intro-text{
+    max-height:340px;
+    overflow-y:auto;
+    padding-right:6px;
+  }
+  .intro-text h2{
+    font-family:'Mrs Saint Delafield', cursive;
+    font-size:26px;
+    color:#e85fa0;
+    margin:6px 0 10px;
+  }
+  .intro-text p{margin:0 0 12px;font-size:12px;line-height:1.75;color:var(--ink);}
+
+  /* ---- misc window (grid paper) ---- */
+  .misc-body{
+    background-image:
+      linear-gradient(#e7f1f8 1px, transparent 1px),
+      linear-gradient(90deg, #e7f1f8 1px, transparent 1px);
+    background-size:22px 22px;
+    padding:20px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    position:relative;
+  }
+  .misc-body h3{
+    font-family:'Mrs Saint Delafield', cursive;
+    font-size:22px;
+    color:#5b8fa8;
+    margin:0 0 10px;
+  }
+  .webring-note{font-size:11.5px;color:var(--ink-soft);}
+  .btn-list{display:flex;flex-direction:column;gap:10px;}
+  .btn-preview{
+    width:88px;height:31px;
+    background:var(--pink);
+    border:1px solid var(--pink-line);
+    font-size:8px;
+    display:flex;align-items:center;justify-content:center;
+    color:#a85a83;
+  }
+  .code-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    background:#fff;
+    border:1px solid var(--pink-line);
+    border-radius:6px;
+    padding:6px 8px;
+    color:var(--ink-soft);
+    max-width:220px;
+    word-break:break-all;
+  }
+
+  /* ---- right column ---- */
+  .music-window{
+    background:var(--win);
+    border:1px solid var(--pink-line);
+    border-radius:14px;
+    box-shadow:0 6px 18px rgba(90,120,150,.12);
+    padding:16px;
+    text-align:center;
+    margin-bottom:20px;
+  }
+  .music-status{
+    font-size:10px;color:var(--pink-deep);
+    border-bottom:1px solid var(--pink-line);
+    padding-bottom:6px;
+    margin-bottom:10px;
+    display:flex;justify-content:space-between;
+  }
+  .song-title{font-weight:700;font-size:16px;margin-bottom:2px;}
+  .song-artist{font-size:11px;color:var(--ink-soft);margin-bottom:16px;}
+  .wheel{
+    width:130px;height:130px;
+    border-radius:50%;
+    border:1px solid var(--pink-line);
+    margin:0 auto;
+    position:relative;
+    background:#fff;
+  }
+  .wheel .label{
+    position:absolute;top:16px;left:50%;transform:translateX(-50%);
+    font-size:9px;letter-spacing:.15em;color:var(--ink-soft);
+  }
+  .wheel .center{
+    width:48px;height:48px;border-radius:50%;
+    background:#f6fafc;border:1px solid var(--pink-line);
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  }
+  .wheel .x{
+    position:absolute;width:12px;height:12px;font-size:8px;
+    border:1px solid var(--pink-line);color:var(--ink-soft);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .wheel .x.l{left:12px;top:50%;transform:translateY(-50%);}
+  .wheel .x.r1{right:24px;bottom:24px;}
+  .wheel .x.r2{right:12px;bottom:24px;}
+
+  .profile-window{padding:0;}
+  .profile-photo{
+    aspect-ratio:1/1;
+    background:
+      repeating-linear-gradient(45deg,#dbeaf4,#dbeaf4 8px,#cfe3f0 8px,#cfe3f0 16px);
+    display:flex;align-items:center;justify-content:center;
+    color:#7ba3bd;
+    font-size:11px;
+  }
+  .profile-info{padding:14px;}
+  .basic-pill{
+    background:var(--pink);
+    border:1px solid var(--pink-line);
+    border-radius:8px;
+    padding:8px 10px;
+    text-align:center;
+    font-size:11.5px;
+    margin-bottom:12px;
+  }
+  .tag-section{
+    max-height:170px;
+    overflow-y:auto;
+  }
+  .tag-section .cat{
+    font-size:11px;
+    margin-bottom:8px;
+    line-height:1.7;
+  }
+  .tag-section .cat b{
+    color:var(--pink-deep);
+    text-decoration:underline dotted;
+    margin-right:4px;
+  }
+
+  footer{
+    text-align:center;
+    padding:20px 0 40px;
+    font-size:10.5px;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .desktop{grid-template-columns:1fr;}
+    .intro-body{grid-template-columns:1fr;}
+    .misc-body{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">seolhae.neocities.org</div>
+  <div class="navlinks">
+    <a href="index.html" class="active"><span class="chk">✓</span>Homepage</a>
+    <a href="#diary"><span class="chk"></span>Diary</a>
+    <a href="#gallery"><span class="chk"></span>Gallery</a>
+    <a href="#fandom"><span class="chk"></span>Fandom</a>
+    <a href="#resources"><span class="chk"></span>Resources</a>
+    <a href="#contact"><span class="chk"></span>Contact</a>
+    <a href="#profile"><span class="chk"></span>Profile</a>
+  </div>
+</div>
+
+<div class="desktop">
+
+  <div>
+    <!-- intro window -->
+    <div class="window">
+      <div class="titlebar">index.html <span class="x">✕</span></div>
+      <div class="intro-body">
+        <div>
+          <div class="avatar-card">photo</div>
+          <div class="folders">
+            <div class="folder"><div class="icon"></div>日常</div>
+            <div class="folder"><div class="icon"></div>追番</div>
+            <div class="folder"><div class="icon"></div>手账</div>
+          </div>
+        </div>
+        <div class="intro-text">
+          <h2>Website introduction</h2>
+          <p>
+            欢迎来到 seolhae.neocities.org！这里是我的个人小角落，
+            主要用来记录喜欢的动漫、追的团，还有日常的一些碎碎念。
+          </p>
+          <p>
+            我把这里当成一个练习写代码、做设计的空间，也会不定期分享自己在意的东西。
+          </p>
+          <p>
+            希望你喜欢逛这个网站！也欢迎在留言板留下你的足迹，我都会认真看的。
+          </p>
+          <h2 style="font-size:22px;">Website details</h2>
+          <p>
+            这个网站是纯手写 HTML / CSS 搭建的静态页面，托管在 GitHub Pages 上，
+            没有使用任何网站生成器模板。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- misc window -->
+    <div class="window">
+      <div class="titlebar">miscellaneous.txt <span class="x">✕</span></div>
+      <div class="misc-body">
+        <div>
+          <h3>Webrings</h3>
+          <p class="webring-note">还没有加入 webring，敬请期待...</p>
+        </div>
+        <div>
+          <h3>Buttons</h3>
+          <div class="btn-list">
+            <div class="btn-preview">seolhae 88×31</div>
+            <div class="code-box">&lt;a href="seolhae.neocities.org"&gt;</div>
+            <div class="btn-preview">friend 88×31</div>
+            <div class="code-box">&lt;a href="..."&gt;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <!-- music widget -->
+    <div class="music-window">
+      <div class="music-status"><span>▸ Now playing</span><span class="x">✕</span></div>
+      <div class="song-title">歌曲名占位</div>
+      <div class="song-artist">歌手 / 团体占位</div>
+      <div class="wheel">
+        <div class="label">MENU</div>
+        <div class="center"></div>
+        <div class="x l">◂</div>
+        <div class="x r1">▸</div>
+        <div class="x r2">II</div>
+      </div>
+    </div>
+
+    <!-- profile.exe -->
+    <div class="window profile-window">
+      <div class="titlebar">PROFILE.EXE <span class="x">✕</span></div>
+      <div class="profile-photo">photo</div>
+      <div class="profile-info">
+        <div class="basic-pill">待补充年龄, 待补充地区, 待补充人称, 待补充MBTI</div>
+        <div class="tag-section">
+          <div class="cat"><b>General</b>写代码、追番、收集周边、手账</div>
+          <div class="cat"><b>Fandom</b>待补充团体 / 待补充角色</div>
+          <div class="cat"><b>Music</b>待补充歌手 / 待补充歌单</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  ⋆ back to <a href="index.html">entrance</a> ⋆<br>
+  seolhae © 2026–forever
+</footer>
+
+</body>
+</html>
