@@ -9,24 +9,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Baloo+2:wght@700&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#3d3a37;
-    --ink-soft:#8f8a7d;
-    --line:#d8d3c6;
-    --sage:#a9c2a0;
+    --ink:#3c5468;
+    --ink-soft:#8caebf;
+    --line:#cfe6f2;
+    --accent:#7fbcdb;
   }
   *{box-sizing:border-box;}
   body{
     margin:0;
-    background:#fdfcf8;
+    background:#ffffff;
     color:var(--ink);
     font-family:'Quicksand', sans-serif;
     font-size:12px;
     line-height:1.5;
   }
-  a{color:#7a8f6f;}
+  a{color:#4a92b8;}
   ::-webkit-scrollbar{width:7px;}
-  ::-webkit-scrollbar-track{background:#f2f1ea;}
-  ::-webkit-scrollbar-thumb{background:#cfc9bc;}
+  ::-webkit-scrollbar-track{background:#eef7fb;}
+  ::-webkit-scrollbar-thumb{background:#bfe0ee;}
 
   .wrap{
     max-width:920px;
@@ -38,9 +38,9 @@
   }
 
   .photo{
-    background:repeating-linear-gradient(135deg,#efece3,#efece3 8px,#e6e2d6 8px,#e6e2d6 16px);
+    background:repeating-linear-gradient(135deg,#eaf6fb,#eaf6fb 8px,#dcf0f8 8px,#dcf0f8 16px);
     border:1px solid var(--line);
-    color:#b3ad9e;
+    color:#9dc3d6;
     display:flex;align-items:center;justify-content:center;
     text-align:center;
     font-size:9.5px;
@@ -58,7 +58,7 @@
     font-family:'Caveat', cursive;font-weight:700;
   }
   .nav-photo .doodle a{
-    color:#fff;text-shadow:0 0 3px rgba(0,0,0,.6);
+    color:var(--ink);text-shadow:0 0 3px rgba(255,255,255,.9);
     font-size:21px;text-decoration:none;line-height:1.1;
   }
 
@@ -81,17 +81,15 @@
     font-weight:700;
     font-size:56px;
     margin:0;
-    color:#fdfcf8;
-    -webkit-text-stroke:2px var(--ink);
+    color:#ffffff;
+    -webkit-text-stroke:2px var(--accent);
   }
-  .sparkle{position:absolute;top:-2px;right:calc(50% - 130px);font-size:18px;color:var(--sage);}
 
   .center-photo-row{
-    display:flex;align-items:center;justify-content:center;gap:14px;
+    display:flex;align-items:center;justify-content:center;
     margin:16px 0 14px;
   }
-  .center-photo-row .photo{width:150px;height:150px;}
-  .notes{font-size:22px;color:#c9c3b6;line-height:1;}
+  .center-photo-row .photo{width:180px;height:150px;}
 
   .intro-box{
     border:1px solid var(--line);
@@ -103,17 +101,9 @@
     text-align:center;
     line-height:1.7;
   }
-  .intro-box i{color:#9aa88f;}
+  .intro-box i{color:#4a92b8;}
 
-  .strip{
-    text-align:center;
-    margin:16px 0 4px;
-    font-size:26px;
-    letter-spacing:4px;
-    color:#d8d2c4;
-    user-select:none;
-  }
-  .foot{text-align:center;font-size:10px;color:var(--ink-soft);margin-top:6px;}
+  .foot{text-align:center;font-size:10px;color:var(--ink-soft);margin-top:14px;}
 
   /* ---- right column ---- */
   .right-photo{height:70px;position:relative;font-size:9px;}
@@ -125,9 +115,7 @@
   }
   .about-photo{
     height:78px;margin-top:10px;
-    font-family:'Caveat',cursive;color:#fff;font-size:16px;font-weight:700;
-    text-shadow:0 0 3px rgba(0,0,0,.6);
-    background:repeating-linear-gradient(45deg,#565656,#565656 6px,#484848 6px,#484848 12px);
+    font-family:'Caveat',cursive;color:var(--ink);font-size:16px;font-weight:700;
   }
   .current-box{
     border:1px solid var(--line);background:#fff;
@@ -140,7 +128,7 @@
   .calendar{border:1px solid var(--line);background:#fff;margin-top:10px;padding:8px;}
   .calendar h5{margin:0 0 6px;text-align:center;font-size:11px;}
   .calendar table{width:100%;border-collapse:collapse;font-size:9px;text-align:center;color:var(--ink-soft);}
-  .calendar td.today{background:var(--sage);color:#fff;border-radius:50%;}
+  .calendar td.today{background:var(--accent);color:#fff;border-radius:50%;}
 
   @media (max-width:760px){
     .wrap{grid-template-columns:1fr;}
@@ -187,12 +175,10 @@
     <div class="center-top">.neocities.org</div>
     <div class="titlewrap">
       <h1>seolhae</h1>
-      <span class="sparkle">✼</span>
     </div>
 
     <div class="center-photo-row">
       <div class="photo">photo</div>
-      <div class="notes">♪♫<br>♩</div>
     </div>
 
     <div class="intro-box">
@@ -201,7 +187,6 @@
       不定期更新，欢迎常来逛逛～
     </div>
 
-    <div class="strip">╰┈➤ ╰┈➤ ╰┈➤ ╰┈➤</div>
     <div class="foot">seolhae © 2026–forever</div>
   </div>
 
