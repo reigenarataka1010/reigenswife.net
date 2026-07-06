@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -345,31 +345,31 @@
 <div class="desktop" id="desktop">
   <div class="blob b1"></div>
   <div class="blob b2"></div>
-  <div class="caption-doodle">˖ ࣪ 오늘도 좋은 하루 ⊹ have a good day</div>
+  <div class="caption-doodle">˖ ࣪ 今日も良い一日を ⊹ have a good day</div>
 
   <!-- desktop icons -->
   <div class="icons">
     <a class="icon" href="index.html"><div class="glyph">📁</div><span>entrance<span class="en">home</span></span></a>
-    <a class="icon" href="main.html"><div class="glyph">📄</div><span>내 문서<span class="en">My Docs</span></span></a>
-    <a class="icon" href="#gallery" id="photoIcon"><div class="glyph">🖼</div><span>내 사진<span class="en">Photos</span></span></a>
+    <a class="icon" href="main.html"><div class="glyph">📄</div><span>マイ書類<span class="en">My Docs</span></span></a>
+    <a class="icon" href="#gallery" id="photoIcon"><div class="glyph">🖼</div><span>写真<span class="en">Photos</span></span></a>
   </div>
-  <a class="trash" href="#" id="trashIcon"><div class="glyph">🗑</div><span>휴지통<span class="en">Trash</span></span></a>
-  <div class="toast" id="toast">비어있어요 · empty</div>
+  <a class="trash" href="#" id="trashIcon"><div class="glyph">🗑</div><span>ゴミ箱<span class="en">Trash</span></span></a>
+  <div class="toast" id="toast">空です · empty</div>
 
   <!-- widgets -->
   <div class="widgets">
 
     <div class="widget">
-      <div class="head"><span>♪ 뮤직 <span class="en">Music</span></span><span>⋯</span></div>
+      <div class="head"><span>♪ ミュージック <span class="en">Music</span></span><span>⋯</span></div>
       <div class="album">album art</div>
-      <div class="song-title">노래 제목을 입력하세요 · song title</div>
+      <div class="song-title">曲のタイトルを入力してください · song title</div>
       <div class="seekbar"><i id="seekFill"></i></div>
       <div class="controls">
         <button onclick="prevTrack()">⏮</button>
         <button class="play" id="playBtn" onclick="toggleMusic()">▶</button>
         <button onclick="nextTrack()">⏭</button>
       </div>
-      <div class="marquee"><span>♪ 배경음악을 넣으려면 music.mp3 파일을 같이 올리고 audio 태그의 src를 바꿔주세요 · add music.mp3 to enable playback ♪</span></div>
+      <div class="marquee"><span>♪ 背景音楽を入れるには music.mp3 ファイルを一緒にアップロードして audio タグの src を変えてください · add music.mp3 to enable playback ♪</span></div>
       <div class="music-hint" id="musicHint"></div>
       <audio id="bgm" loop>
         <!-- <source src="music.mp3" type="audio/mpeg"> -->
@@ -377,26 +377,26 @@
     </div>
 
     <div class="widget">
-      <div class="head"><span>♥ 디데이 <span class="en">D-day</span></span><span>⋯</span></div>
+      <div class="head"><span>♥ Dデイ <span class="en">D-day</span></span><span>⋯</span></div>
       <div class="dday-num" id="ddayNum">D+0</div>
-      <div class="dday-date" id="ddayDate">시작일 Since: -</div>
+      <div class="dday-date" id="ddayDate">開始日 Since: -</div>
     </div>
 
     <div class="widget">
-      <div class="head"><span>✓ 할 일 <span class="en">To-do</span></span><span>⋯</span></div>
-      <input class="todo-input" id="todoInput" placeholder="할 일 입력 후 Enter · add a to-do" onkeydown="if(event.key==='Enter')addTodo()">
+      <div class="head"><span>✓ やることリスト <span class="en">To-do</span></span><span>⋯</span></div>
+      <input class="todo-input" id="todoInput" placeholder="やることを入力して Enter · add a to-do" onkeydown="if(event.key==='Enter')addTodo()">
       <ul class="todo-list" id="todoList"></ul>
     </div>
 
     <div class="widget">
       <div class="timer-toggle" id="timerToggle">
-        <span>⏱ 타이머 <span class="en">Timer</span></span><span id="timerArrow">▾</span>
+        <span>⏱ タイマー <span class="en">Timer</span></span><span id="timerArrow">▾</span>
       </div>
       <div class="timer-body" id="timerBody">
         <div class="timer-display" id="timerDisplay">00:00</div>
         <div class="timer-controls">
-          <button id="timerStart">시작 Start</button>
-          <button id="timerReset">초기화 Reset</button>
+          <button id="timerStart">スタート Start</button>
+          <button id="timerReset">リセット Reset</button>
         </div>
       </div>
     </div>
@@ -410,15 +410,15 @@
       <div class="name">📁 seolhae's gallery</div>
     </div>
     <div class="crumbrow">
-      <span>내 PC My PC</span> › <span id="crumbCurrent">All</span>
-      <input id="searchBox" placeholder="검색 후 Enter · search">
+      <span>マイPC My PC</span> › <span id="crumbCurrent">All</span>
+      <input id="searchBox" placeholder="検索して Enter · search">
     </div>
     <div class="explorer-body">
       <div class="exp-side">
-        <div class="cat-title">즐겨찾기 Favorites</div>
-        <a href="index.html">📁 내 PC · My PC</a>
-        <a href="main.html#guestbook">💬 방명록 · Guestbook</a>
-        <div class="cat-title">카테고리 Category</div>
+        <div class="cat-title">お気に入り Favorites</div>
+        <a href="index.html">📁 マイPC · My PC</a>
+        <a href="main.html#guestbook">💬 記帳ノート · Guestbook</a>
+        <div class="cat-title">カテゴリー Category</div>
         <a href="#" class="cat active" data-cat="all">☆ All</a>
         <a href="#" class="cat" data-cat="diary">˙ diary</a>
         <a href="#" class="cat" data-cat="note">˙ note</a>
@@ -438,7 +438,7 @@
             <div class="thumb" data-cat="about" data-label="about 02">about 02</div>
           </div>
         </div>
-        <div class="item-count" id="itemCount">8개 항목 · 8 items</div>
+        <div class="item-count" id="itemCount">8件 · 8 items</div>
       </div>
     </div>
     <div class="resize-handle" id="resizeHandle">
@@ -448,7 +448,7 @@
 
   <!-- taskbar -->
   <div class="taskbar">
-    <button class="start-btn" id="startBtn">시작 Start</button>
+    <button class="start-btn" id="startBtn">スタート Start</button>
     <span class="user">seolhae</span>
     <span class="clock" id="clock">00:00</span>
     <span class="heart">♥</span>
@@ -458,7 +458,7 @@
     <a href="index.html">🏠 entrance <span class="en">home</span></a>
     <a href="main.html">📄 main <span class="en">main page</span></a>
     <a href="#gallery" id="startGallery">🖼 gallery <span class="en">photos</span></a>
-    <a href="main.html#guestbook">💬 guestbook <span class="en">방명록</span></a>
+    <a href="main.html#guestbook">💬 guestbook <span class="en">記帳ノート</span></a>
   </div>
 
 </div>
@@ -509,10 +509,10 @@
   const startDate = new Date('2026-01-01');
   const diffDays = Math.floor((new Date() - startDate) / 86400000);
   document.getElementById('ddayNum').textContent = 'D+' + diffDays;
-  document.getElementById('ddayDate').textContent = '시작일 Since: ' + startDate.toISOString().slice(0,10);
+  document.getElementById('ddayDate').textContent = '開始日 Since: ' + startDate.toISOString().slice(0,10);
 
   /* ---------- 待办事项 to-do list（当前会话内存） ---------- */
-  let todos = [{text:'꼬옥 안아주기 · give a hug', done:false}];
+  let todos = [{text:'ぎゅっと抱きしめる · give a hug', done:false}];
   function renderTodos(){
     const list = document.getElementById('todoList');
     list.innerHTML = '';
@@ -554,7 +554,7 @@
   }
   document.getElementById('timerStart').addEventListener('click', function(){
     timerRunning = !timerRunning;
-    this.textContent = timerRunning ? '일시정지 Pause' : '시작 Start';
+    this.textContent = timerRunning ? '一時停止 Pause' : 'スタート Start';
     if(timerRunning){
       timerInterval = setInterval(() => { timerSeconds++; updateTimerDisplay(); }, 1000);
     } else {
@@ -564,7 +564,7 @@
   document.getElementById('timerReset').addEventListener('click', function(){
     timerSeconds = 0; timerRunning = false;
     clearInterval(timerInterval);
-    document.getElementById('timerStart').textContent = '시작 Start';
+    document.getElementById('timerStart').textContent = 'スタート Start';
     updateTimerDisplay();
   });
 
@@ -580,7 +580,7 @@
   }
   function toggleMusic(){
     if(!hasRealSource()){
-      musicHint.textContent = '음악 파일이 아직 없어요 · no music file added yet';
+      musicHint.textContent = '音楽ファイルがまだありません · no music file added yet';
       setTimeout(() => { musicHint.textContent = ''; }, 2200);
       return;
     }
@@ -588,7 +588,7 @@
       bgm.pause(); playBtn.textContent = '▶'; playing = false;
     } else {
       bgm.play().then(() => { playing = true; playBtn.textContent = '❚❚'; })
-                .catch(() => { musicHint.textContent = '재생할 수 없어요 · playback blocked'; });
+                .catch(() => { musicHint.textContent = '再生できません · playback blocked'; });
     }
   }
   function prevTrack(){ bgm.currentTime = 0; }
@@ -622,7 +622,7 @@
         if(show) visible++;
       });
       crumbCurrent.textContent = link.textContent.replace('˙','').trim() || 'All';
-      itemCount.textContent = visible + '개 항목 · ' + visible + ' items';
+      itemCount.textContent = visible + '件 · ' + visible + ' items';
     });
   });
 
@@ -640,11 +640,11 @@
         if(match) visible++;
       });
       crumbCurrent.textContent = q ? ('"' + q + '"') : 'All';
-      itemCount.textContent = visible + '개 항목 · ' + visible + ' items';
+      itemCount.textContent = visible + '件 · ' + visible + ' items';
     }
   });
 
-  /* ---------- 桌面图标：내 사진 -> 高亮文件管理器窗口 ---------- */
+  /* ---------- 桌面图标：写真 -> 高亮文件管理器窗口 ---------- */
   document.getElementById('photoIcon').addEventListener('click', (e) => {
     e.preventDefault();
     const explorer = document.getElementById('explorer');
@@ -659,7 +659,7 @@
     setTimeout(() => explorer.classList.remove('pulse'), 700);
   });
 
-  /* ---------- 휴지통 trash：小提示 toast ---------- */
+  /* ---------- ゴミ箱 trash：小提示 toast ---------- */
   const toast = document.getElementById('toast');
   document.getElementById('trashIcon').addEventListener('click', (e) => {
     e.preventDefault();
@@ -667,7 +667,7 @@
     setTimeout(() => toast.classList.remove('show'), 1500);
   });
 
-  /* ---------- 시작 메뉴 start menu ---------- */
+  /* ---------- スタートメニュー start menu ---------- */
   const startBtn = document.getElementById('startBtn');
   const startMenu = document.getElementById('startMenu');
   startBtn.addEventListener('click', (e) => {
