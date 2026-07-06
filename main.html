@@ -126,12 +126,16 @@
   .avatar-card{
     aspect-ratio:3/4;
     border-radius:10px;
-    background:
-      repeating-linear-gradient(135deg,#f4e0ec,#f4e0ec 10px,#eccfe0 10px,#eccfe0 20px);
+    overflow:hidden;
     display:flex;align-items:center;justify-content:center;
     color:#c98ab0;
     font-size:11px;
     border:1px solid var(--pink-line);
+  }
+  .avatar-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
   }
   .folders{
     display:flex;
@@ -254,11 +258,15 @@
   .profile-window{padding:0;}
   .profile-photo{
     aspect-ratio:1/1;
-    background:
-      repeating-linear-gradient(45deg,#dbeaf4,#dbeaf4 8px,#cfe3f0 8px,#cfe3f0 16px);
+    overflow:hidden;
     display:flex;align-items:center;justify-content:center;
     color:#7ba3bd;
     font-size:11px;
+  }
+  .profile-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
   }
   .profile-info{padding:14px;}
   .basic-pill{
@@ -334,7 +342,7 @@
       <div class="titlebar">index.html <span class="x">✕</span></div>
       <div class="intro-body">
         <div>
-          <div class="avatar-card">photo</div>
+          <div class="avatar-card"><img src="images/girl1.png" alt="avatar"></div>
           <div class="folders">
             <div class="folder"><div class="icon"></div>日常</div>
             <div class="folder"><div class="icon"></div>追番</div>
@@ -403,7 +411,7 @@
     <!-- profile.exe -->
     <div class="window profile-window">
       <div class="titlebar">PROFILE.EXE <span class="x">✕</span></div>
-      <div class="profile-photo">photo</div>
+      <div class="profile-photo"><img src="images/girl1.png" alt="profile"></div>
       <div class="profile-info">
         <div class="basic-pill">待补充年龄, 待补充地区, 待补充人称, 待补充MBTI</div>
         <div class="tag-section">
