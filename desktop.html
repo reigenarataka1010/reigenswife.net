@@ -28,10 +28,26 @@
     font-family:'Nunito', sans-serif;
     color:var(--ink);
     font-size:12.5px;
-    cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26"><text y="20" font-size="20">✿</text></svg>') 10 10, auto;
+    cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path d="M12 20.5c-.3 0-.6-.1-.8-.3C7.8 17.4 4 13.9 4 9.8 4 7.1 6.1 5 8.7 5c1.4 0 2.7.6 3.3 1.6C12.6 5.6 13.9 5 15.3 5 17.9 5 20 7.1 20 9.8c0 4.1-3.8 7.6-7.2 10.4-.2.2-.5.3-.8.3z" fill="%237fb8d9" stroke="white" stroke-width="1"/></svg>') 7 7, auto;
   }
   a, button{
-    cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26"><text y="20" font-size="20">♡</text></svg>') 10 10, pointer;
+    cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path d="M12 20.5c-.3 0-.6-.1-.8-.3C7.8 17.4 4 13.9 4 9.8 4 7.1 6.1 5 8.7 5c1.4 0 2.7.6 3.3 1.6C12.6 5.6 13.9 5 15.3 5 17.9 5 20 7.1 20 9.8c0 4.1-3.8 7.6-7.2 10.4-.2.2-.5.3-.8.3z" fill="%237fb8d9"/></svg>') 9 9, pointer;
+  }
+
+  /* ---- 鼠标拖尾特效 cursor trail ---- */
+  .trail-bit{
+    position:fixed;
+    top:0;left:0;
+    pointer-events:none;
+    z-index:9999;
+    font-size:12px;
+    color:var(--accent-deep);
+    will-change:transform, opacity;
+    animation:trail-fade .8s ease-out forwards;
+  }
+  @keyframes trail-fade{
+    0%{opacity:1; transform:translate(-50%,-50%) scale(1) translate(0,0);}
+    100%{opacity:0; transform:translate(-50%,-50%) scale(.4) translate(var(--drift,0px),26px);}
   }
 
   /* ---- wallpaper ---- */
@@ -80,9 +96,10 @@
     z-index:2;
   }
   .icon{
-    width:74px;text-align:center;
+    width:78px;text-align:center;
     text-decoration:none;color:var(--ink);
-    font-size:10.5px;
+    font-size:10px;
+    line-height:1.3;
   }
   .icon .glyph{
     width:42px;height:36px;margin:0 auto 4px;
@@ -94,10 +111,11 @@
     backdrop-filter:blur(4px);
   }
   .icon span{text-shadow:0 0 4px #fff, 0 0 4px #fff;}
+  .icon .en{display:block;font-size:8.5px;color:var(--ink-soft);}
 
   .trash{
     position:absolute;bottom:64px;left:22px;
-    text-align:center;width:74px;font-size:10.5px;
+    text-align:center;width:78px;font-size:10px;
     color:var(--ink);
   }
   .trash .glyph{
@@ -106,6 +124,18 @@
     display:flex;align-items:center;justify-content:center;font-size:18px;
     backdrop-filter:blur(4px);
   }
+  .trash .en{display:block;font-size:8.5px;color:var(--ink-soft);}
+
+  .toast{
+    position:absolute;left:112px;bottom:70px;
+    background:var(--glass);border:1px solid var(--line);border-radius:8px;
+    padding:6px 10px;font-size:10.5px;color:var(--ink-soft);
+    opacity:0;transform:translateY(6px);
+    transition:opacity .25s ease, transform .25s ease;
+    pointer-events:none;
+    backdrop-filter:blur(8px);
+  }
+  .toast.show{opacity:1;transform:translateY(0);}
 
   /* ---- widgets (top right) ---- */
   .widgets{
@@ -125,6 +155,7 @@
     display:flex;justify-content:space-between;align-items:center;
     font-size:11px;color:var(--ink-soft);margin-bottom:8px;
   }
+  .widget .head .en{font-size:9px;color:var(--ink-soft);opacity:.8;}
 
   .album{
     width:100%;aspect-ratio:16/9;border-radius:8px;
@@ -133,8 +164,8 @@
     color:#c98fae;font-size:10px;margin-bottom:8px;
   }
   .song-title{font-size:11px;font-weight:700;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .seekbar{height:3px;background:var(--line);border-radius:2px;margin-bottom:8px;position:relative;}
-  .seekbar i{position:absolute;left:0;top:0;height:100%;width:20%;background:var(--accent-deep);border-radius:2px;}
+  .seekbar{height:3px;background:var(--line);border-radius:2px;margin-bottom:8px;position:relative;overflow:hidden;}
+  .seekbar i{position:absolute;left:0;top:0;height:100%;width:0%;background:var(--accent-deep);border-radius:2px;transition:width .2s linear;}
   .controls{display:flex;justify-content:center;gap:16px;align-items:center;}
   .controls button{
     background:none;border:none;font-size:15px;color:var(--ink);
@@ -146,6 +177,7 @@
   .marquee{margin-top:8px;font-size:10px;color:var(--ink-soft);white-space:nowrap;overflow:hidden;}
   .marquee span{display:inline-block;padding-left:100%;animation:mq 12s linear infinite;}
   @keyframes mq{from{transform:translateX(0);}to{transform:translateX(-100%);}}
+  .music-hint{font-size:9.5px;color:var(--pink-deep);margin-top:6px;text-align:center;min-height:12px;}
 
   .dday-num{font-size:24px;font-weight:700;color:var(--pink-deep);}
   .dday-date{font-size:10px;color:var(--ink-soft);}
@@ -159,16 +191,28 @@
     display:flex;align-items:center;gap:6px;
     font-size:11px;padding:3px 0;
   }
+  .todo-list li.done span.txt{text-decoration:line-through;color:var(--ink-soft);}
   .todo-list li .del{margin-left:auto;color:var(--ink-soft);cursor:pointer;font-size:10px;}
 
   .timer-toggle{font-size:11px;color:var(--ink-soft);cursor:pointer;display:flex;justify-content:space-between;}
+  .timer-body{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .timer-body.open{max-height:100px;margin-top:10px;}
+  .timer-display{font-size:20px;font-weight:700;text-align:center;color:var(--accent-deep);margin-bottom:8px;}
+  .timer-controls{display:flex;justify-content:center;gap:8px;}
+  .timer-controls button{
+    border:1px solid var(--line);background:#fff;border-radius:6px;
+    font-size:10px;padding:4px 10px;color:var(--ink);
+  }
 
-  /* ---- explorer window ---- */
+  /* ---- explorer window（可拖动 + 可缩放） ---- */
   .explorer{
     position:absolute;
-    top:50%;left:50%;
-    transform:translate(-50%,-46%);
-    width:min(680px, 90vw);
+    width:680px;
+    height:430px;
+    max-width:92vw;
+    max-height:80vh;
+    min-width:360px;
+    min-height:300px;
     background:var(--glass);
     border:1px solid var(--line);
     border-radius:14px;
@@ -176,14 +220,23 @@
     backdrop-filter:blur(14px);
     overflow:hidden;
     z-index:4;
+    display:flex;
+    flex-direction:column;
+    transition:box-shadow .3s ease;
+  }
+  .explorer.pulse{
+    box-shadow:0 0 0 4px rgba(238,147,188,.45), 0 20px 50px rgba(80,60,50,.18);
   }
   .explorer .titlebar{
     display:flex;align-items:center;gap:8px;
     padding:10px 14px;
     border-bottom:1px solid var(--line);
     font-size:11px;color:var(--ink-soft);
+    flex:0 0 auto;
+    user-select:none;
+    cursor:move;
   }
-  .traffic{display:flex;gap:6px;}
+  .traffic{display:flex;gap:6px;flex-shrink:0;}
   .traffic span{width:10px;height:10px;border-radius:50%;}
   .traffic .r{background:#f19b9b;}
   .traffic .y{background:#f0d59b;}
@@ -195,34 +248,50 @@
     padding:8px 14px;
     border-bottom:1px solid var(--line);
     font-size:10.5px;color:var(--ink-soft);
+    flex:0 0 auto;
   }
   .crumbrow input{
     margin-left:auto;border:1px solid var(--line);border-radius:6px;
-    padding:4px 8px;font-size:10px;width:130px;background:#fff;
+    padding:4px 8px;font-size:10px;width:150px;background:#fff;
   }
 
-  .explorer-body{display:grid;grid-template-columns:150px 1fr;}
+  .explorer-body{display:grid;grid-template-columns:150px 1fr;flex:1;min-height:0;}
   .exp-side{
     border-right:1px solid var(--line);
     padding:12px 10px;
     font-size:10.5px;
+    overflow-y:auto;
   }
-  .exp-side .cat-title{color:var(--ink-soft);margin:10px 0 4px;font-size:9.5px;letter-spacing:.05em;}
+  .exp-side .cat-title{color:var(--ink-soft);margin:10px 0 4px;font-size:9px;letter-spacing:.05em;}
   .exp-side a{
     display:block;color:var(--ink);text-decoration:none;
     padding:4px 4px;border-radius:5px;
   }
   .exp-side a:hover, .exp-side a.active{background:rgba(216,138,168,.18);}
 
-  .exp-main{padding:14px;max-height:280px;overflow-y:auto;}
+  .exp-right{display:flex;flex-direction:column;min-height:0;}
+  .exp-main{padding:14px;flex:1;min-height:0;overflow-y:auto;}
   .thumb-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
   .thumb{
     aspect-ratio:1;border-radius:8px;
     background:repeating-linear-gradient(135deg,#eaf5fb,#eaf5fb 8px,#dcedf7 8px,#dcedf7 16px);
     display:flex;align-items:center;justify-content:center;
     color:#9dc3d6;font-size:9px;
+    transition:opacity .15s ease, transform .15s ease;
   }
-  .item-count{padding:8px 14px;border-top:1px solid var(--line);font-size:10px;color:var(--ink-soft);}
+  .thumb.hidden{display:none;}
+  .item-count{padding:8px 14px;border-top:1px solid var(--line);font-size:10px;color:var(--ink-soft);flex:0 0 auto;}
+
+  .resize-handle{
+    position:absolute;right:0;bottom:0;
+    width:18px;height:18px;
+    cursor:nwse-resize;
+    display:flex;align-items:flex-end;justify-content:flex-end;
+    padding:3px;
+    color:var(--ink-soft);
+    z-index:2;
+  }
+  .resize-handle svg{display:block;}
 
   /* ---- taskbar ---- */
   .taskbar{
@@ -242,11 +311,11 @@
   }
   .taskbar .user{font-size:11px;color:var(--ink-soft);}
   .taskbar .clock{margin-left:auto;font-size:11px;color:var(--ink);}
-  .taskbar .heart{color:var(--accent-deep);}
+  .taskbar .heart{color:var(--pink-deep);}
 
   .start-menu{
     position:absolute;bottom:52px;left:14px;
-    width:170px;background:var(--glass);border:1px solid var(--line);
+    width:180px;background:var(--glass);border:1px solid var(--line);
     border-radius:10px;backdrop-filter:blur(12px);
     box-shadow:0 10px 26px rgba(80,60,50,.15);
     padding:8px;display:none;z-index:6;
@@ -257,6 +326,7 @@
     color:var(--ink);text-decoration:none;font-size:11.5px;
   }
   .start-menu a:hover{background:rgba(216,138,168,.18);}
+  .start-menu a .en{display:block;font-size:9px;color:var(--ink-soft);}
 
   @media (max-width:720px){
     .widgets{display:none;}
@@ -270,114 +340,144 @@
 <div class="desktop" id="desktop">
   <div class="blob b1"></div>
   <div class="blob b2"></div>
-  <div class="caption-doodle">˖ ࣪ 오늘도 좋은 하루 ⊹</div>
+  <div class="caption-doodle">˖ ࣪ 오늘도 좋은 하루 ⊹ have a good day</div>
 
   <!-- desktop icons -->
   <div class="icons">
-    <a class="icon" href="index.html"><div class="glyph">📁</div><span>entrance</span></a>
-    <a class="icon" href="main.html"><div class="glyph">📄</div><span>내 문서</span></a>
-    <a class="icon" href="#gallery"><div class="glyph">🖼</div><span>내 사진</span></a>
+    <a class="icon" href="index.html"><div class="glyph">📁</div><span>entrance<span class="en">home</span></span></a>
+    <a class="icon" href="main.html"><div class="glyph">📄</div><span>내 문서<span class="en">My Docs</span></span></a>
+    <a class="icon" href="#gallery" id="photoIcon"><div class="glyph">🖼</div><span>내 사진<span class="en">Photos</span></span></a>
   </div>
-  <a class="trash" href="#" onclick="return false;"><div class="glyph">🗑</div><span>휴지통</span></a>
+  <a class="trash" href="#" id="trashIcon"><div class="glyph">🗑</div><span>휴지통<span class="en">Trash</span></span></a>
+  <div class="toast" id="toast">비어있어요 · empty</div>
 
   <!-- widgets -->
   <div class="widgets">
 
     <div class="widget">
-      <div class="head"><span>♪ 뮤직</span><span>⋯</span></div>
+      <div class="head"><span>♪ 뮤직 <span class="en">Music</span></span><span>⋯</span></div>
       <div class="album">album art</div>
-      <div class="song-title">노래 제목을 입력하세요</div>
-      <div class="seekbar"><i></i></div>
+      <div class="song-title">노래 제목을 입력하세요 · song title</div>
+      <div class="seekbar"><i id="seekFill"></i></div>
       <div class="controls">
         <button onclick="prevTrack()">⏮</button>
         <button class="play" id="playBtn" onclick="toggleMusic()">▶</button>
         <button onclick="nextTrack()">⏭</button>
       </div>
-      <div class="marquee"><span>♪ 배경음악을 넣으려면 music.mp3 파일을 같이 올리고 audio 태그의 src를 바꿔주세요 ♪</span></div>
+      <div class="marquee"><span>♪ 배경음악을 넣으려면 music.mp3 파일을 같이 올리고 audio 태그의 src를 바꿔주세요 · add music.mp3 to enable playback ♪</span></div>
+      <div class="music-hint" id="musicHint"></div>
       <audio id="bgm" loop>
         <!-- <source src="music.mp3" type="audio/mpeg"> -->
       </audio>
     </div>
 
     <div class="widget">
-      <div class="head"><span>♥ 디데이</span><span>⋯</span></div>
+      <div class="head"><span>♥ 디데이 <span class="en">D-day</span></span><span>⋯</span></div>
       <div class="dday-num" id="ddayNum">D+0</div>
-      <div class="dday-date" id="ddayDate">시작일: -</div>
+      <div class="dday-date" id="ddayDate">시작일 Since: -</div>
     </div>
 
     <div class="widget">
-      <div class="head"><span>✓ 할 일</span><span>⋯</span></div>
-      <input class="todo-input" id="todoInput" placeholder="할 일 입력 후 Enter" onkeydown="if(event.key==='Enter')addTodo()">
+      <div class="head"><span>✓ 할 일 <span class="en">To-do</span></span><span>⋯</span></div>
+      <input class="todo-input" id="todoInput" placeholder="할 일 입력 후 Enter · add a to-do" onkeydown="if(event.key==='Enter')addTodo()">
       <ul class="todo-list" id="todoList"></ul>
     </div>
 
     <div class="widget">
-      <div class="timer-toggle" onclick="document.getElementById('timerBody').classList.toggle('open')">
-        <span>⏱ 타이머</span><span>▾</span>
+      <div class="timer-toggle" id="timerToggle">
+        <span>⏱ 타이머 <span class="en">Timer</span></span><span id="timerArrow">▾</span>
+      </div>
+      <div class="timer-body" id="timerBody">
+        <div class="timer-display" id="timerDisplay">00:00</div>
+        <div class="timer-controls">
+          <button id="timerStart">시작 Start</button>
+          <button id="timerReset">초기화 Reset</button>
+        </div>
       </div>
     </div>
 
   </div>
 
   <!-- explorer window -->
-  <div class="explorer">
+  <div class="explorer" id="explorer">
     <div class="titlebar">
       <div class="traffic"><span class="r"></span><span class="y"></span><span class="g"></span></div>
       <div class="name">📁 seolhae's gallery</div>
     </div>
     <div class="crumbrow">
-      <span>내 PC</span> › <span>seolhae's gallery</span>
-      <input placeholder="검색 후 Enter">
+      <span>내 PC My PC</span> › <span id="crumbCurrent">All</span>
+      <input id="searchBox" placeholder="검색 후 Enter · search">
     </div>
     <div class="explorer-body">
       <div class="exp-side">
-        <div class="cat-title">즐겨찾기</div>
-        <a href="index.html">📁 내 PC</a>
-        <a href="main.html#guestbook">💬 방명록</a>
-        <div class="cat-title">카테고리</div>
-        <a href="#" class="active" onclick="return false;">☆ All</a>
-        <a href="#" onclick="return false;">˙ diary</a>
-        <a href="#" onclick="return false;">˙ note</a>
-        <a href="#gallery" onclick="return false;">˙ log</a>
-        <a href="main.html#about" onclick="return false;">˙ About</a>
+        <div class="cat-title">즐겨찾기 Favorites</div>
+        <a href="index.html">📁 내 PC · My PC</a>
+        <a href="main.html#guestbook">💬 방명록 · Guestbook</a>
+        <div class="cat-title">카테고리 Category</div>
+        <a href="#" class="cat active" data-cat="all">☆ All</a>
+        <a href="#" class="cat" data-cat="diary">˙ diary</a>
+        <a href="#" class="cat" data-cat="note">˙ note</a>
+        <a href="#" class="cat" data-cat="log">˙ log</a>
+        <a href="#" class="cat" data-cat="about">˙ About</a>
       </div>
-      <div>
+      <div class="exp-right">
         <div class="exp-main" id="gallery">
-          <div class="thumb-grid">
-            <div class="thumb">photo</div>
-            <div class="thumb">photo</div>
-            <div class="thumb">photo</div>
-            <div class="thumb">photo</div>
-            <div class="thumb">photo</div>
-            <div class="thumb">photo</div>
-            <div class="thumb">photo</div>
-            <div class="thumb">photo</div>
+          <div class="thumb-grid" id="thumbGrid">
+            <div class="thumb" data-cat="diary" data-label="diary 01">diary 01</div>
+            <div class="thumb" data-cat="diary" data-label="diary 02">diary 02</div>
+            <div class="thumb" data-cat="note" data-label="note 01">note 01</div>
+            <div class="thumb" data-cat="note" data-label="note 02">note 02</div>
+            <div class="thumb" data-cat="log" data-label="log 01">log 01</div>
+            <div class="thumb" data-cat="log" data-label="log 02">log 02</div>
+            <div class="thumb" data-cat="about" data-label="about 01">about 01</div>
+            <div class="thumb" data-cat="about" data-label="about 02">about 02</div>
           </div>
         </div>
-        <div class="item-count">8개 항목</div>
+        <div class="item-count" id="itemCount">8개 항목 · 8 items</div>
       </div>
+    </div>
+    <div class="resize-handle" id="resizeHandle">
+      <svg width="10" height="10" viewBox="0 0 10 10"><path d="M9 1 L1 9 M9 5 L5 9" stroke="currentColor" stroke-width="1.2"/></svg>
     </div>
   </div>
 
   <!-- taskbar -->
   <div class="taskbar">
-    <button class="start-btn" onclick="document.getElementById('startMenu').classList.toggle('open')">시작</button>
+    <button class="start-btn" id="startBtn">시작 Start</button>
     <span class="user">seolhae</span>
     <span class="clock" id="clock">00:00</span>
     <span class="heart">♥</span>
   </div>
 
   <div class="start-menu" id="startMenu">
-    <a href="index.html">🏠 entrance</a>
-    <a href="main.html">📄 main</a>
-    <a href="#gallery">🖼 gallery</a>
-    <a href="main.html#guestbook">💬 guestbook</a>
+    <a href="index.html">🏠 entrance <span class="en">home</span></a>
+    <a href="main.html">📄 main <span class="en">main page</span></a>
+    <a href="#gallery" id="startGallery">🖼 gallery <span class="en">photos</span></a>
+    <a href="main.html#guestbook">💬 guestbook <span class="en">방명록</span></a>
   </div>
 
 </div>
 
 <script>
-  /* 漂浮装饰 */
+  /* ---------- 鼠标拖尾特效 cursor trail：小爱心跟随（蓝色，更密） ---------- */
+  let lastTrail = 0;
+  document.addEventListener('mousemove', (e) => {
+    const now = Date.now();
+    if(now - lastTrail < 40) return; // 节流：数值越小，尾迹越密
+    lastTrail = now;
+    const bit = document.createElement('span');
+    bit.className = 'trail-bit';
+    bit.textContent = '♡';
+    bit.style.left = e.clientX + 'px';
+    bit.style.top = e.clientY + 'px';
+    bit.style.fontSize = (8 + Math.random()*5) + 'px';
+    bit.style.setProperty('--drift', (Math.random()*14 - 7) + 'px');
+    document.body.appendChild(bit);
+    setTimeout(() => bit.remove(), 800);
+  });
+
+
+  /* ---------- 漂浮装饰 floating decorations ---------- */
   const symbols = ['✼','♡','⋆','✧','❀'];
   const desktop = document.getElementById('desktop');
   for(let i=0;i<16;i++){
@@ -392,7 +492,7 @@
     desktop.appendChild(el);
   }
 
-  /* 时钟 */
+  /* ---------- 时钟 clock ---------- */
   function tick(){
     const d = new Date();
     document.getElementById('clock').textContent =
@@ -400,53 +500,264 @@
   }
   tick(); setInterval(tick, 1000*30);
 
-  /* D-day：改成你自己的起始日期 */
+  /* ---------- D-day：改成你自己的起始日期 change start date below ---------- */
   const startDate = new Date('2026-01-01');
   const diffDays = Math.floor((new Date() - startDate) / 86400000);
   document.getElementById('ddayNum').textContent = 'D+' + diffDays;
-  document.getElementById('ddayDate').textContent = '시작일: ' + startDate.toISOString().slice(0,10);
+  document.getElementById('ddayDate').textContent = '시작일 Since: ' + startDate.toISOString().slice(0,10);
 
-  /* 待办事项（仅当前会话内存，刷新会重置；部署后可以自行加 localStorage 持久化） */
-  let todos = [];
+  /* ---------- 待办事项 to-do list（当前会话内存） ---------- */
+  let todos = [{text:'꼬옥 안아주기 · give a hug', done:false}];
   function renderTodos(){
     const list = document.getElementById('todoList');
     list.innerHTML = '';
     todos.forEach((t, i) => {
       const li = document.createElement('li');
-      li.innerHTML = '♡ ' + t + ' <span class="del" onclick="removeTodo(' + i + ')">✕</span>';
+      if(t.done) li.classList.add('done');
+      li.innerHTML =
+        '<span class="txt" style="cursor:pointer" onclick="toggleTodo(' + i + ')">♡ ' + t.text + '</span>' +
+        '<span class="del" onclick="removeTodo(' + i + ')">✕</span>';
       list.appendChild(li);
     });
   }
   function addTodo(){
     const input = document.getElementById('todoInput');
     if(input.value.trim()){
-      todos.push(input.value.trim());
+      todos.push({text:input.value.trim(), done:false});
       input.value = '';
       renderTodos();
     }
   }
+  function toggleTodo(i){ todos[i].done = !todos[i].done; renderTodos(); }
   function removeTodo(i){ todos.splice(i,1); renderTodos(); }
-  todos = ['꼬옥 안아주기'];
   renderTodos();
 
-  /* 音乐播放（浏览器限制：需要用户先点击一次才能真正自动播放） */
+  /* ---------- 计时器 stopwatch ---------- */
+  const timerToggle = document.getElementById('timerToggle');
+  const timerBody = document.getElementById('timerBody');
+  const timerArrow = document.getElementById('timerArrow');
+  timerToggle.addEventListener('click', () => {
+    timerBody.classList.toggle('open');
+    timerArrow.textContent = timerBody.classList.contains('open') ? '▴' : '▾';
+  });
+  let timerSeconds = 0, timerRunning = false, timerInterval = null;
+  const timerDisplay = document.getElementById('timerDisplay');
+  function updateTimerDisplay(){
+    const m = String(Math.floor(timerSeconds/60)).padStart(2,'0');
+    const s = String(timerSeconds%60).padStart(2,'0');
+    timerDisplay.textContent = m + ':' + s;
+  }
+  document.getElementById('timerStart').addEventListener('click', function(){
+    timerRunning = !timerRunning;
+    this.textContent = timerRunning ? '일시정지 Pause' : '시작 Start';
+    if(timerRunning){
+      timerInterval = setInterval(() => { timerSeconds++; updateTimerDisplay(); }, 1000);
+    } else {
+      clearInterval(timerInterval);
+    }
+  });
+  document.getElementById('timerReset').addEventListener('click', function(){
+    timerSeconds = 0; timerRunning = false;
+    clearInterval(timerInterval);
+    document.getElementById('timerStart').textContent = '시작 Start';
+    updateTimerDisplay();
+  });
+
+  /* ---------- 音乐播放 music playback ---------- */
   const bgm = document.getElementById('bgm');
   const playBtn = document.getElementById('playBtn');
+  const seekFill = document.getElementById('seekFill');
+  const musicHint = document.getElementById('musicHint');
   let playing = false;
+
+  function hasRealSource(){
+    return !!bgm.querySelector('source');
+  }
   function toggleMusic(){
-    if(playing){ bgm.pause(); playBtn.textContent = '▶'; }
-    else { bgm.play().catch(()=>{}); playBtn.textContent = '❚❚'; }
-    playing = !playing;
+    if(!hasRealSource()){
+      musicHint.textContent = '음악 파일이 아직 없어요 · no music file added yet';
+      setTimeout(() => { musicHint.textContent = ''; }, 2200);
+      return;
+    }
+    if(playing){
+      bgm.pause(); playBtn.textContent = '▶'; playing = false;
+    } else {
+      bgm.play().then(() => { playing = true; playBtn.textContent = '❚❚'; })
+                .catch(() => { musicHint.textContent = '재생할 수 없어요 · playback blocked'; });
+    }
   }
   function prevTrack(){ bgm.currentTime = 0; }
   function nextTrack(){ bgm.currentTime = 0; }
-  // 尝试首次点击页面任意位置时自动播放
+  bgm.addEventListener('timeupdate', () => {
+    if(bgm.duration){ seekFill.style.width = (bgm.currentTime / bgm.duration * 100) + '%'; }
+  });
+  // 首次点击页面任意位置时，如果已配置真实音源就自动尝试播放
   document.body.addEventListener('click', function once(){
-    if(!playing && bgm.querySelector('source')){
-      bgm.play().then(()=>{ playing = true; playBtn.textContent = '❚❚'; }).catch(()=>{});
+    if(!playing && hasRealSource()){
+      bgm.play().then(() => { playing = true; playBtn.textContent = '❚❚'; }).catch(() => {});
     }
     document.body.removeEventListener('click', once);
   });
+
+  /* ---------- 文件管理器：分类筛选 explorer category filter ---------- */
+  const catLinks = document.querySelectorAll('.exp-side a.cat');
+  const thumbs = document.querySelectorAll('#thumbGrid .thumb');
+  const itemCount = document.getElementById('itemCount');
+  const crumbCurrent = document.getElementById('crumbCurrent');
+  catLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      catLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      const cat = link.dataset.cat;
+      let visible = 0;
+      thumbs.forEach(t => {
+        const show = (cat === 'all' || t.dataset.cat === cat);
+        t.classList.toggle('hidden', !show);
+        if(show) visible++;
+      });
+      crumbCurrent.textContent = link.textContent.replace('˙','').trim() || 'All';
+      itemCount.textContent = visible + '개 항목 · ' + visible + ' items';
+    });
+  });
+
+  /* ---------- 搜索框 search box ---------- */
+  const searchBox = document.getElementById('searchBox');
+  searchBox.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter'){
+      const q = searchBox.value.trim().toLowerCase();
+      let visible = 0;
+      // 搜索时先取消分类高亮，按全部范围搜索
+      catLinks.forEach(l => l.classList.remove('active'));
+      thumbs.forEach(t => {
+        const match = !q || t.dataset.label.toLowerCase().includes(q);
+        t.classList.toggle('hidden', !match);
+        if(match) visible++;
+      });
+      crumbCurrent.textContent = q ? ('"' + q + '"') : 'All';
+      itemCount.textContent = visible + '개 항목 · ' + visible + ' items';
+    }
+  });
+
+  /* ---------- 桌面图标：내 사진 -> 高亮文件管理器窗口 ---------- */
+  document.getElementById('photoIcon').addEventListener('click', (e) => {
+    e.preventDefault();
+    const explorer = document.getElementById('explorer');
+    explorer.classList.add('pulse');
+    setTimeout(() => explorer.classList.remove('pulse'), 700);
+  });
+  document.getElementById('startGallery').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('startMenu').classList.remove('open');
+    const explorer = document.getElementById('explorer');
+    explorer.classList.add('pulse');
+    setTimeout(() => explorer.classList.remove('pulse'), 700);
+  });
+
+  /* ---------- 휴지통 trash：小提示 toast ---------- */
+  const toast = document.getElementById('toast');
+  document.getElementById('trashIcon').addEventListener('click', (e) => {
+    e.preventDefault();
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1500);
+  });
+
+  /* ---------- 시작 메뉴 start menu ---------- */
+  const startBtn = document.getElementById('startBtn');
+  const startMenu = document.getElementById('startMenu');
+  startBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    startMenu.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if(!startMenu.contains(e.target) && e.target !== startBtn){
+      startMenu.classList.remove('open');
+    }
+  });
+
+  /* ---------- 文件管理器窗口：自由拖动 + 缩放 ---------- */
+  const explorerWin = document.getElementById('explorer');
+
+  // 初始位置：屏幕居中（用 left/top 而不是 transform，方便后面拖动）
+  function centerExplorer(){
+    const w = explorerWin.offsetWidth, h = explorerWin.offsetHeight;
+    explorerWin.style.left = Math.max(10, (window.innerWidth - w) / 2) + 'px';
+    explorerWin.style.top = Math.max(10, (window.innerHeight - h) / 2 - 20) + 'px';
+  }
+  centerExplorer();
+
+  // 拖动：按住标题栏（非红黄绿按钮区域）移动窗口
+  let dragging = false, dragOffsetX = 0, dragOffsetY = 0;
+  const titlebarEl = explorerWin.querySelector('.titlebar');
+  titlebarEl.addEventListener('mousedown', (e) => {
+    dragging = true;
+    const rect = explorerWin.getBoundingClientRect();
+    dragOffsetX = e.clientX - rect.left;
+    dragOffsetY = e.clientY - rect.top;
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', (e) => {
+    if(!dragging) return;
+    let x = e.clientX - dragOffsetX;
+    let y = e.clientY - dragOffsetY;
+    x = Math.max(-explorerWin.offsetWidth + 60, Math.min(x, window.innerWidth - 60));
+    y = Math.max(0, Math.min(y, window.innerHeight - 40));
+    explorerWin.style.left = x + 'px';
+    explorerWin.style.top = y + 'px';
+  });
+  document.addEventListener('mouseup', () => { dragging = false; });
+
+  // 缩放：拖右下角手柄
+  let resizing = false, resizeStartX = 0, resizeStartY = 0, startW = 0, startH = 0;
+  const resizeHandle = document.getElementById('resizeHandle');
+  resizeHandle.addEventListener('mousedown', (e) => {
+    resizing = true;
+    resizeStartX = e.clientX;
+    resizeStartY = e.clientY;
+    startW = explorerWin.offsetWidth;
+    startH = explorerWin.offsetHeight;
+    e.preventDefault();
+    e.stopPropagation();
+  });
+  document.addEventListener('mousemove', (e) => {
+    if(!resizing) return;
+    const newW = startW + (e.clientX - resizeStartX);
+    const newH = startH + (e.clientY - resizeStartY);
+    explorerWin.style.width = Math.max(360, newW) + 'px';
+    explorerWin.style.height = Math.max(300, newH) + 'px';
+  });
+  document.addEventListener('mouseup', () => { resizing = false; });
+
+  // 触屏支持（手机/平板拖动 & 缩放）
+  titlebarEl.addEventListener('touchstart', (e) => {
+    dragging = true;
+    const t = e.touches[0];
+    const rect = explorerWin.getBoundingClientRect();
+    dragOffsetX = t.clientX - rect.left;
+    dragOffsetY = t.clientY - rect.top;
+  }, {passive:true});
+  document.addEventListener('touchmove', (e) => {
+    if(!dragging) return;
+    const t = e.touches[0];
+    explorerWin.style.left = (t.clientX - dragOffsetX) + 'px';
+    explorerWin.style.top = (t.clientY - dragOffsetY) + 'px';
+  }, {passive:true});
+  document.addEventListener('touchend', () => { dragging = false; resizing = false; });
+  resizeHandle.addEventListener('touchstart', (e) => {
+    resizing = true;
+    const t = e.touches[0];
+    resizeStartX = t.clientX; resizeStartY = t.clientY;
+    startW = explorerWin.offsetWidth; startH = explorerWin.offsetHeight;
+  }, {passive:true});
+  document.addEventListener('touchmove', (e) => {
+    if(!resizing) return;
+    const t = e.touches[0];
+    const newW = startW + (t.clientX - resizeStartX);
+    const newH = startH + (t.clientY - resizeStartY);
+    explorerWin.style.width = Math.max(360, newW) + 'px';
+    explorerWin.style.height = Math.max(300, newH) + 'px';
+  }, {passive:true});
+
 </script>
 
 </body>
