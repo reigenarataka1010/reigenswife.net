@@ -132,23 +132,13 @@
     font-size:11px;
     border:1px solid var(--pink-line);
   }
-  .avatar-card{
-    position:relative;
-  }
   .avatar-card img{
-    position:absolute;
-    top:0;left:0;
     width:100%;
     height:100%;
     object-fit:cover;
     object-position:center 15%;
     transform:scale(1.35);
     transform-origin:center 15%;
-    opacity:0;
-    transition:opacity 1s ease-in-out;
-  }
-  .avatar-card img.active{
-    opacity:1;
   }
   .folders{
     display:flex;
@@ -355,13 +345,7 @@
       <div class="titlebar">index.html <span class="x">✕</span></div>
       <div class="intro-body">
         <div>
-          <div class="avatar-card" id="avatarCarousel">
-            <img src="images/girl1.png" alt="avatar" class="active">
-            <img src="images/girl2.jpg" alt="avatar">
-            <img src="images/girl3.png" alt="avatar">
-            <img src="images/girl4.png" alt="avatar">
-            <img src="images/girl5.png" alt="avatar">
-          </div>
+          <div class="avatar-card"><img src="images/girl1.png" alt="avatar"></div>
           <div class="folders">
             <div class="folder"><div class="icon"></div>日常</div>
             <div class="folder"><div class="icon"></div>追番</div>
@@ -450,19 +434,6 @@
 </footer>
 
 <script>
-  /* 头像轮播：5张图自动淡入淡出切换 */
-  (function(){
-    const wrap = document.getElementById('avatarCarousel');
-    if(!wrap) return;
-    const imgs = wrap.querySelectorAll('img');
-    let idx = 0;
-    setInterval(() => {
-      imgs[idx].classList.remove('active');
-      idx = (idx + 1) % imgs.length;
-      imgs[idx].classList.add('active');
-    }, 4000);
-  })();
-
   /* 鼠标拖尾特效：小爱心跟随 */
   let lastTrail = 0;
   document.addEventListener('mousemove', (e) => {
