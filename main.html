@@ -170,6 +170,7 @@
     margin:16px 0 14px;
   }
   .center-photo-row .photo{width:180px;height:150px;}
+  .center-photo-row .photo::before{display:none;}
 
   .intro-box{
     position:relative;
@@ -329,7 +330,7 @@
     <div class="about-photo photo">about</div>
 
     <div class="current-box">
-      <div class="avatar photo">头像</div>
+      <div class="avatar photo" style="overflow:hidden;"><img src="images/girl4.png" alt="avatar" style="width:100%;height:100%;object-fit:cover;"></div>
       <p>正在追：待补充番剧</p>
       <div class="links">members list ｜ webring</div>
     </div>
